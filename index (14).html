@@ -1,0 +1,2406 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adam Krone Import Export und Logistik UG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0078d4;
+            --secondary: #0068bf;
+            --surface: #0057a8;
+            --accent: #ffb900;
+            --accent-light: #ffd000;
+            --text-primary: #ffffff;
+            --text-muted: #cce4f7;
+            --border: #1a8ad4;
+            --section-alt: #f0f6fc;
+            --navbar-bg: #0046a0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #002050;
+            line-height: 1.7;
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        .font-headline {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .font-medium {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Language Toggles */
+        [data-de="true"] { display: block; }
+        [data-en="true"] { display: none; }
+
+        body[data-lang="en"] [data-de="true"] { display: none; }
+        body[data-lang="en"] [data-en="true"] { display: block; }
+
+        body[data-lang="de"] [data-de="true"] { display: block; }
+        body[data-lang="de"] [data-en="true"] { display: none; }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: transparent;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+            background: var(--navbar-bg);
+            padding: 0.8rem 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+
+        .logo {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: #ffb900;
+        }
+
+        .logo-tagline {
+            font-size: 0.6rem;
+            color: #ffb900;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffb900;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a:hover {
+            color: #ffb900;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .lang-pill {
+            display: flex;
+            background: rgba(255, 185, 0, 0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 185, 0, 0.3);
+        }
+
+        .lang-pill button {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            padding: 0.4rem 0.9rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            border-radius: 0;
+            letter-spacing: 0.15em;
+        }
+
+        .lang-pill button:hover {
+            color: #ffb900;
+        }
+
+        .lang-pill button.active {
+            background: var(--accent);
+            color: #000000;
+        }
+
+        .cta-nav {
+            background: var(--accent);
+            color: #000000;
+            padding: 0.7rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .cta-nav:hover {
+            background: var(--accent-light);
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 185, 0, 0.4);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            background:
+                linear-gradient(135deg,
+                    #0057a8 0%,
+                    #0078d4 50%,
+                    #00a0e9 100%
+                ),
+                radial-gradient(ellipse at 30% 70%, rgba(255, 185, 0, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 20%, rgba(0, 87, 168, 0.4) 0%, transparent 40%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 80px,
+                rgba(255, 185, 0, 0.015) 80px,
+                rgba(255, 185, 0, 0.015) 81px
+            );
+            pointer-events: none;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 185, 0, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 20%;
+            right: 10%;
+            pointer-events: none;
+            animation: pulse-glow 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .hero-content {
+            max-width: 1100px;
+            z-index: 1;
+            padding-top: 80px;
+        }
+
+        .hero-accent-line {
+            width: 80px;
+            height: 3px;
+            background: #ffb900;
+            margin: 0 auto 2rem;
+            animation: expand-line 1s ease-out 0.3s both;
+        }
+
+        @keyframes expand-line {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+
+        .hero h1 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            line-height: 1.15;
+            text-shadow: 0 0 60px rgba(255,185,0,0.3);
+        }
+
+        .hero h1 .word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fade-in-up 0.8s ease forwards;
+        }
+
+        .hero h1 .word:nth-child(1) { animation-delay: 0.4s; }
+        .hero h1 .word:nth-child(2) { animation-delay: 0.6s; }
+        .hero h1 .word:nth-child(3) { animation-delay: 0.8s; }
+
+        .hero h1 .highlight {
+            color: #ffb900;
+        }
+
+        @keyframes fade-in-up {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subline {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            animation: fade-in 1s ease 1s both;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+            animation: fade-in 1s ease 1.2s both;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000000;
+            padding: 1rem 2.5rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: scale(1.02);
+            box-shadow: 0 10px 35px rgba(255, 185, 0, 0.4);
+        }
+
+        .btn-primary::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .btn-primary:hover::after {
+            transform: translateX(4px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            padding: 1rem 2.5rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 2px solid #ffffff;
+        }
+
+        .btn-secondary:hover {
+            border-color: #ffb900;
+            color: #ffb900;
+            transform: scale(1.02);
+        }
+
+        /* Wave Divider */
+        .wave-divider {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 80px;
+        }
+
+        .wave-divider .shape-fill {
+            fill: var(--text-primary);
+        }
+
+        /* ========== STATS BAR ========== */
+        .stats-bar {
+            background: #0057a8;
+            padding: 5rem 2rem;
+            position: relative;
+        }
+
+        .stats-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 185, 0, 0.02) 10px,
+                rgba(255, 185, 0, 0.02) 11px
+            );
+            pointer-events: none;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, #0078d4, transparent);
+        }
+
+        .stat-number {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            color: #ffb900;
+            line-height: 1;
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+        }
+
+        /* ========== SECTIONS ========== */
+        section {
+            padding: 7rem 2rem;
+        }
+
+        .section-max {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: #002050;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-top: 2.5rem;
+        }
+
+        .section-header h2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #ffb900;
+        }
+
+        .section-header h2 .gold {
+            color: #ffb900;
+        }
+
+        .section-header p {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ========== ABOUT ========== */
+        .about {
+            background: #ffffff;
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 500'%3E%3Cpath fill='%230078d4' fill-opacity='0.03' d='M500,250c-50,0-100-20-100-50s50-50,100-50,100,20,100,50-50,50-100,50z M200,150c30,0,60,15,60,35s-30,35-60,35-60-15-60-35,30-35,60-35z M800,200c40,0,80,20,80,45s-40,45-80,45-80-20-80-45,40-45,80-45z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 70%;
+            pointer-events: none;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 5rem;
+            align-items: start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-pullquote {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: #ffb900;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .about-pullquote::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -10px;
+            font-size: 3rem;
+            color: #ffb900;
+            opacity: 0.5;
+        }
+
+        .about-content p {
+            font-size: 1.05rem;
+            color: #002050;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .timeline-item {
+            padding: 1.5rem 0;
+            padding-left: 2rem;
+            border-left: 2px solid rgba(255, 185, 0, 0.3);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            border-left-color: #ffb900;
+            transform: translateX(5px);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 2rem;
+            width: 10px;
+            height: 10px;
+            background: #ffb900;
+            border-radius: 50%;
+        }
+
+        .timeline-label {
+            font-size: 0.75rem;
+            color: #ffb900;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-value {
+            font-size: 1rem;
+            color: #002050;
+            font-weight: 500;
+        }
+
+        /* ========== SERVICES ========== */
+        .services {
+            background: var(--primary);
+            max-width: 100%;
+            padding: 7rem 2rem;
+        }
+
+        .services .section-header h2 {
+            color: var(--text-primary);
+        }
+
+        .services .section-header h2::before {
+            background: #ffb900;
+        }
+
+        .services .section-header p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--surface);
+            padding: 2.5rem 2rem;
+            border-radius: 2px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #ffb900;
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: background 0.3s;
+        }
+
+        .service-card:hover .service-icon {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .service-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .service-card h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .service-link {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-link:hover {
+            color: #ffd000;
+        }
+
+        .service-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .service-link:hover::after {
+            transform: translateX(4px);
+        }
+
+        /* ========== GLOBAL NETWORK ========== */
+        .network {
+            background: #ffffff;
+            position: relative;
+        }
+
+        .network-subtitle {
+            text-align: center;
+            font-size: 1rem;
+            color: #ffb900;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        .world-map {
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            position: relative;
+        }
+
+        .world-map svg {
+            width: 100%;
+            height: auto;
+            fill: rgba(0, 120, 212, 0.1);
+            stroke: rgba(255, 185, 0, 0.3);
+            stroke-width: 1;
+        }
+
+        .map-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        .map-dot::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 185, 0, 0.3);
+            border-radius: 50%;
+            animation: pulse-ring 2s ease-in-out infinite;
+        }
+
+        .map-dot.libya { top: 42%; left: 52%; }
+        .map-dot.iraq { top: 45%; left: 57%; }
+        .map-dot.syria { top: 40%; left: 57%; }
+        .map-dot.algeria { top: 44%; left: 48%; }
+        .map-dot.egypt { top: 48%; left: 54%; }
+        .map-dot.saudi { top: 52%; left: 56%; }
+        .map-dot.uae { top: 53%; left: 59%; }
+        .map-dot.germany { top: 30%; left: 50%; animation-delay: 0.5s; }
+
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes pulse-ring {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+        }
+
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .country-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--section-alt);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .country-badge:hover {
+            border-color: #ffb900;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 185, 0, 0.2);
+        }
+
+        .country-flag {
+            font-size: 1.5rem;
+        }
+
+        .country-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #002050;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .network-cta {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, #0078d4, #005a9e);
+            border-radius: 4px;
+            border: 2px solid rgba(255, 185, 0, 0.2);
+        }
+
+        .network-cta h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .network-cta h3 .gold {
+            color: #ffb900;
+        }
+
+        /* ========== QUOTE FORM ========== */
+        .quote-section {
+            background: var(--primary);
+            max-width: 100%;
+            position: relative;
+            padding: 7rem 2rem;
+        }
+
+        .quote-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ffb900, #ffb900, #ffd000, #ffb900, #ffb900);
+        }
+
+        .quote-section .section-header h2 {
+            color: var(--text-primary);
+        }
+
+        .quote-section .section-header h2::before {
+            background: #ffb900;
+        }
+
+        .quote-section .section-header p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .quote-grid {
+            display: grid;
+            grid-template-columns: 0.35fr 0.65fr;
+            gap: 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .quote-benefits {
+            color: var(--text-primary);
+        }
+
+        .quote-benefits h4 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 2rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-icon {
+            width: 32px;
+            height: 32px;
+            background: #ffb900;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+            color: #000000;
+        }
+
+        .benefit-text {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+        }
+
+        .quote-form {
+            background: #ffffff;
+            padding: 3rem;
+            border-radius: 2px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            color: #002050;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 0;
+            border: none;
+            border-bottom: 2px solid #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: transparent;
+            border-radius: 0;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-bottom-color: #ffb900;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--accent);
+            color: #000000;
+            padding: 1.1rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            border-radius: 2px;
+        }
+
+        .btn-submit:hover {
+            background: var(--accent-light);
+            transform: scale(1.02);
+            box-shadow: 0 10px 35px rgba(255, 185, 0, 0.4);
+        }
+
+        /* ========== TESTIMONIALS ========== */
+        .testimonials {
+            background: #ffffff;
+            padding: 7rem 2rem;
+        }
+
+        .testimonials .section-header h2 {
+            color: #002050;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--section-alt);
+            padding: 2.5rem;
+            border-radius: 4px;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            font-size: 3.5rem;
+            color: #ffb900;
+            opacity: 0.4;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            color: #002050;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #ffb900;
+            font-size: 0.95rem;
+        }
+
+        .testimonial-company {
+            font-size: 0.8rem;
+            color: #005a9e;
+            margin-top: 0.25rem;
+        }
+
+        /* ========== CONTACT ========== */
+        .contact {
+            background: #ffffff;
+            padding: 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 0.45fr 0.55fr;
+            gap: 0;
+        }
+
+        .contact-info {
+            background: #0046a0;
+            padding: 5rem 3rem;
+            color: var(--text-primary);
+        }
+
+        .contact-info h3 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 3rem;
+        }
+
+        .contact-info h3 .gold {
+            color: #ffb900;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 185, 0, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h5 {
+            font-size: 0.7rem;
+            color: #ffb900;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-details p {
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .contact-details a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .contact-details a:hover {
+            color: #ffb900;
+        }
+
+        .map-wrapper {
+            position: relative;
+            height: 100%;
+            min-height: 500px;
+        }
+
+        .map-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 3px solid #ffb900;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: #0046a0;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 5rem 2rem 2rem;
+        }
+
+        .footer-max {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo .logo {
+            font-size: 1.5rem;
+            letter-spacing: 0.15em;
+            color: var(--text-primary);
+        }
+
+        .footer-logo::after {
+            width: 50px;
+        }
+
+        .footer-logo .logo-tagline {
+            margin-top: 0.75rem;
+        }
+
+        .footer-description {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .footer-heading {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ffb900;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact-item .icon {
+            color: #ffb900;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom::before {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #ffb900;
+            margin-right: 2rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* ========== STICKY QUOTE BUTTON ========== */
+        .sticky-quote {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            background: var(--accent);
+            color: #000000;
+            padding: 1rem 1.75rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            box-shadow: 0 10px 35px rgba(255, 185, 0, 0.4);
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .sticky-quote:hover {
+            background: var(--accent-light);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 45px rgba(255, 185, 0, 0.5);
+        }
+
+        /* ========== SCROLL REVEAL ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .countries-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quote-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: #0046a0;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transform: translateX(100%);
+                transition: transform 0.4s ease;
+                z-index: 998;
+                padding: 2rem;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+            }
+
+            .lang-pill {
+                margin-top: 1rem;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .mobile-menu-btn.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .mobile-menu-btn.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-menu-btn.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .cta-nav {
+                display: none;
+            }
+
+            .hero-content {
+                padding-top: 100px;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+
+            .stat-item:nth-child(1)::after,
+            .stat-item:nth-child(2)::after {
+                display: block;
+            }
+
+            .stat-item:nth-child(odd)::after {
+                right: -1px;
+                top: 50%;
+                width: 1px;
+                height: 40%;
+                background: linear-gradient(to bottom, transparent, #0078d4, transparent);
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .countries-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                padding: 4rem 2rem;
+            }
+
+            .map-wrapper {
+                min-height: 400px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .footer-bottom::before {
+                display: none;
+            }
+
+            .sticky-quote {
+                display: block;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .quote-form {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+                letter-spacing: 1px;
+            }
+
+            .section-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .quote-grid {
+                gap: 2rem;
+            }
+
+            .contact-info {
+                padding: 3rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body data-lang="de">
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="#hero" class="logo-container">
+            <div class="logo">ADAM KRONE</div>
+            <div class="logo-tagline">IMPORT · EXPORT · LOGISTIK</div>
+        </a>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="#about">
+                    <span data-de="true">Über uns</span>
+                    <span data-en="true">About Us</span>
+                </a></li>
+                <li><a href="#services">
+                    <span data-de="true">Leistungen</span>
+                    <span data-en="true">Services</span>
+                </a></li>
+                <li><a href="#network">
+                    <span data-de="true">Märkte</span>
+                    <span data-en="true">Markets</span>
+                </a></li>
+                <li><a href="#contact">
+                    <span data-de="true">Kontakt</span>
+                    <span data-en="true">Contact</span>
+                </a></li>
+                <li class="lang-pill">
+                    <button class="active" onclick="setLanguage('de')">DE</button>
+                    <button onclick="setLanguage('en')">EN</button>
+                </li>
+            </ul>
+            <a href="#quote" class="cta-nav">
+                <span data-de="true">Angebot anfragen</span>
+                <span data-en="true">Request Quote</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <div class="hero-accent-line"></div>
+            <h1 data-de="true">
+                <span class="word">Ihr Partner für</span><br>
+                <span class="word highlight">Globalen Handel</span><br>
+                <span class="word">& Logistik</span>
+            </h1>
+            <h1 data-en="true">
+                <span class="word">Your Partner for</span><br>
+                <span class="word highlight">Global Trade</span><br>
+                <span class="word">& Logistics</span>
+            </h1>
+            <p class="hero-subline" data-de="true">Von Deutschland in den Nahen Osten und Nordafrika</p>
+            <p class="hero-subline" data-en="true">From Germany to the Middle East and North Africa</p>
+            <div class="hero-buttons">
+                <a href="#quote" class="btn-primary">
+                    <span data-de="true">Angebot anfragen</span>
+                    <span data-en="true">Request a Quote</span>
+                </a>
+                <a href="#services" class="btn-secondary">
+                    <span data-de="true">Leistungen entdecken</span>
+                    <span data-en="true">Explore Services</span>
+                </a>
+            </div>
+        </div>
+        <div class="wave-divider">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,156.63,69.08,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar" id="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number" data-target="500">0</div>
+                <div class="stat-label">
+                    <span data-de="true">Sendungen</span>
+                    <span data-en="true">Shipments</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="20">0</div>
+                <div class="stat-label">
+                    <span data-de="true">Länder</span>
+                    <span data-en="true">Countries</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="15">0</div>
+                <div class="stat-label">
+                    <span data-de="true">Jahre Erfahrung</span>
+                    <span data-en="true">Years Experience</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="9">0</div>
+                <div class="stat-label">
+                    <span data-de="true">Leistungen</span>
+                    <span data-en="true">Services</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-max">
+            <div class="section-header reveal">
+                <h2>
+                    <span data-de="true">Über</span>
+                    <span data-en="true">About</span>
+                    <span class="gold">Adam Krone</span>
+                </h2>
+                <p data-de="true">Deutschland-basiert · Global vernetzt · MENA-Spezialist</p>
+                <p data-en="true">Germany-based · Globally Connected · MENA Specialist</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-content reveal">
+                    <div class="about-pullquote" data-de="true">
+                        Qualität in jeder Lieferung. Vertrauen in jeder Beziehung.
+                    </div>
+                    <div class="about-pullquote" data-en="true">
+                        Quality in every delivery. Trust in every relationship.
+                    </div>
+                    <p data-de="true">
+                        Die <strong>Adam Krone Import Export und Logistik UG</strong> ist eine in Deutschland registrierte Gesellschaft mit Sitz in Ditzingen. Wir verbinden deutsche Ingenieurskunst und Präzision mit tiefer Expertise in den Märkten des Mittleren Ostens und Nordafrikas.
+                    </p>
+                    <p data-de="true">
+                        Unser Fokus liegt auf komplexen Logistiklösungen für die Öl- und Gasindustrie sowie dem Import und Export von schweren Maschinen und Industrieausrüstung. Mit langjährigen Beziehungen in der MENA-Region garantieren wir zuverlässige Lieferketten und maßgeschneiderte Lösungen.
+                    </p>
+                    <p data-en="true">
+                        <strong>Adam Krone Import Export und Logistik UG</strong> is a German-registered company based in Ditzingen. We combine German engineering excellence and precision with deep expertise in the markets of the Middle East and North Africa.
+                    </p>
+                    <p data-en="true">
+                        Our focus is on complex logistics solutions for the oil and gas industry, as well as the import and export of heavy machinery and industrial equipment. With long-standing relationships in the MENA region, we guarantee reliable supply chains and customized solutions.
+                    </p>
+                </div>
+                <div class="about-timeline reveal">
+                    <div class="timeline-item">
+                        <div class="timeline-label" data-de="true">Unternehmensform</div>
+                        <div class="timeline-label" data-en="true">Legal Form</div>
+                        <div class="timeline-value" data-de="true">In Deutschland registrierte UG</div>
+                        <div class="timeline-value" data-en="true">Registered German UG Company</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-label" data-de="true">Spezialisierung</div>
+                        <div class="timeline-label" data-en="true">Specialization</div>
+                        <div class="timeline-value" data-de="true">Öl & Gas Sektor</div>
+                        <div class="timeline-value" data-en="true">Oil & Gas Sector</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-label" data-de="true">Marktexpertise</div>
+                        <div class="timeline-label" data-en="true">Market Expertise</div>
+                        <div class="timeline-value" data-de="true">MENA Region</div>
+                        <div class="timeline-value" data-en="true">MENA Region</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-label" data-de="true">Standort</div>
+                        <div class="timeline-label" data-en="true">Location</div>
+                        <div class="timeline-value" data-de="true">Ditzingen, Deutschland</div>
+                        <div class="timeline-value" data-en="true">Ditzingen, Germany</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-max">
+            <div class="section-header reveal">
+                <h2>
+                    <span data-de="true">Unsere</span>
+                    <span data-en="true">Our</span>
+                    <span class="gold">Leistungen</span>
+                </h2>
+                <p data-de="true">Umfassende Logistik- und Handelslösungen für die Industrie</p>
+                <p data-en="true">Comprehensive logistics and trade solutions for industry</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </div>
+                    <h3>
+                        <span data-de="true">Öl & Gas Logistik</span>
+                        <span data-en="true">Oil & Gas Logistics</span>
+                    </h3>
+                    <p data-de="true">Spezialtransporte, Ausrüstung und Versorgung für die Öl- und Gasindustrie in der MENA-Region</p>
+                    <p data-en="true">Specialized transport, equipment and supplies for the oil and gas industry in the MENA region</p>
+                    <a href="#quote" class="service-link">
+                        <span data-de="true">Mehr erfahren</span>
+                        <span data-en="true">Learn more</span>
+                    </a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="white"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                    </div>
+                    <h3>
+                        <span data-de="true">Schwermaschinentransport</span>
+                        <span data-en="true">Heavy Equipment Export</span>
+                    </h3>
+                    <p data-de="true">Sicherer Export von Baumaschinen, Kränen und Industrieequipment weltweit</p>
+                    <p data-en="true">Safe export of construction machinery, cranes and industrial equipment worldwide</p>
+                    <a href="#quote" class="service-link">
+                        <span data-de="true">Mehr erfahren</span>
+                        <span data-en="true">Learn more</span>
+                    </a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="white"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                    </div>
+                    <h3>
+                        <span data-de="true">Fahrzeugexport</span>
+                        <span data-en="true">Vehicle Export</span>
+                    </h3>
+                    <p data-de="true">Komplette Fahrzeuglieferungen, Flottenmanagement und Spezialfahrzeugexport</p>
+                    <p data-en="true">Complete vehicle deliveries, fleet management and special vehicle export</p>
+                    <a href="#quote" class="service-link">
+                        <span data-de="true">Mehr erfahren</span>
+                        <span data-en="true">Learn more</span>
+                    </a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="white"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+                    </div>
+                    <h3>
+                        <span data-de="true">Straßenbau & Infrastruktur</span>
+                        <span data-en="true">Road & Infrastructure</span>
+                    </h3>
+                    <p data-de="true">Materiallieferungen und Ausrüstung für Straßenbauprojekte und Infrastrukturentwicklung</p>
+                    <p data-en="true">Material supplies and equipment for road construction projects and infrastructure development</p>
+                    <a href="#quote" class="service-link">
+                        <span data-de="true">Mehr erfahren</span>
+                        <span data-en="true">Learn more</span>
+                    </a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="white"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                    </div>
+                    <h3>
+                        <span data-de="true">Luftfahrt-Logistik</span>
+                        <span data-en="true">Aviation Logistics</span>
+                    </h3>
+                    <p data-de="true">Hubschrauberlandeplätze und luftfahrtbezogene Logistikdienstleistungen</p>
+                    <p data-en="true">Helicopter landing pads and aviation-related logistics services</p>
+                    <a href="#quote" class="service-link">
+                        <span data-de="true">Mehr erfahren</span>
+                        <span data-en="true">Learn more</span>
+                    </a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="white"><path d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V1h-1.97v4.05h-4.97l.3 2.34c1.71.47 3.31 1.32 4.27 2.26 1.44 1.42 2.43 2.89 2.43 5.29v8.05zM1 21.99V21h15.03v.99c0 .55-.45 1-1.01 1H2.01c-.56 0-1.01-.45-1.01-1zm15.03-7c0-2.91-3.37-4.33-7.52-4.33-4.14 0-7.51 1.42-7.51 4.33v.99H16.03v-.99z"/></svg>
+                    </div>
+                    <h3>
+                        <span data-de="true">Catering für Ölfelder</span>
+                        <span data-en="true">Oil Field Catering</span>
+                    </h3>
+                    <p data-de="true">Komplette Versorgungslösungen und Camp-Setup für Remote-Projekte</p>
+                    <p data-en="true">Complete supply solutions and camp setup for remote projects</p>
+                    <a href="#quote" class="service-link">
+                        <span data-de="true">Mehr erfahren</span>
+                        <span data-en="true">Learn more</span>
+                    </a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    </div>
+                    <h3>
+                        <span data-de="true">Technisches Personal</span>
+                        <span data-en="true">Technical Personnel</span>
+                    </h3>
+                    <p data-de="true">Qualifizierte Fachkräfte für Industrie- und Pipeline-Projekte</p>
+                    <p data-en="true">Qualified specialists for industrial and pipeline projects</p>
+                    <a href="#quote" class="service-link">
+                        <span data-de="true">Mehr erfahren</span>
+                        <span data-en="true">Learn more</span>
+                    </a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="white"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20c4 0 4-2 8-2s4 2 8 2v-2c-4 0-4-2-8-2-1.13 0-1.9.16-2.53.33C14.28 11.86 17 10 21 10V8c-1.35 0-2.68.2-4 .56V8z"/></svg>
+                    </div>
+                    <h3>
+                        <span data-de="true">Agrar & Industrie</span>
+                        <span data-en="true">Agriculture & Industry</span>
+                    </h3>
+                    <p data-de="true">Export von Ausrüstung, Maschinen und Gütern für Landwirtschaft und Industrie</p>
+                    <p data-en="true">Export of equipment, machinery and goods for agriculture and industry</p>
+                    <a href="#quote" class="service-link">
+                        <span data-de="true">Mehr erfahren</span>
+                        <span data-en="true">Learn more</span>
+                    </a>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    </div>
+                    <h3>
+                        <span data-de="true">Globaler Import</span>
+                        <span data-en="true">Global Import Services</span>
+                    </h3>
+                    <p data-de="true">Zuverlässige Importlösungen aus aller Welt nach Deutschland und Europa</p>
+                    <p data-en="true">Reliable import solutions from around the world to Germany and Europe</p>
+                    <a href="#quote" class="service-link">
+                        <span data-de="true">Mehr erfahren</span>
+                        <span data-en="true">Learn more</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Network Section -->
+    <section class="network" id="network">
+        <div class="section-max">
+            <div class="section-header reveal">
+                <h2>
+                    <span data-de="true">Unsere</span>
+                    <span data-en="true">Our</span>
+                    <span class="gold">Märkte</span>
+                </h2>
+            </div>
+            <div class="network-subtitle">Von Deutschland in die Welt</div>
+            <div class="world-map reveal">
+                <svg viewBox="0 0 1000 500">
+                    <path d="M200,150 Q220,130 250,140 Q280,130 300,150 Q320,140 340,160 Q360,150 380,170 L370,200 Q350,220 320,210 Q290,230 260,210 Q230,220 200,200 Z" />
+                    <path d="M480,120 Q520,100 560,120 Q600,100 640,120 Q680,100 720,120 L700,180 Q660,200 620,180 Q580,200 540,180 Q500,200 460,180 Z" />
+                    <path d="M700,250 Q740,230 780,250 Q820,230 860,250 L840,300 Q800,320 760,300 Q720,320 680,300 Z" />
+                    <circle cx="500" cy="150" r="3" fill="#ffb900" />
+                    <circle cx="550" cy="200" r="3" fill="#ffb900" />
+                    <circle cx="600" cy="180" r="3" fill="#ffb900" />
+                    <circle cx="650" cy="220" r="3" fill="#ffb900" />
+                    <circle cx="700" cy="200" r="3" fill="#ffb900" />
+                    <circle cx="750" cy="250" r="3" fill="#ffb900" />
+                    <circle cx="800" cy="260" r="3" fill="#ffb900" />
+                </svg>
+                <div class="map-dot libya"></div>
+                <div class="map-dot iraq"></div>
+                <div class="map-dot syria"></div>
+                <div class="map-dot algeria"></div>
+                <div class="map-dot egypt"></div>
+                <div class="map-dot saudi"></div>
+                <div class="map-dot uae"></div>
+                <div class="map-dot germany"></div>
+            </div>
+            <div class="countries-grid reveal">
+                <div class="country-badge">
+                    <span class="country-flag">🇱🇾</span>
+                    <span class="country-name">Libyen</span>
+                </div>
+                <div class="country-badge">
+                    <span class="country-flag">🇮🇶</span>
+                    <span class="country-name">Irak</span>
+                </div>
+                <div class="country-badge">
+                    <span class="country-flag">🇸🇾</span>
+                    <span class="country-name">Syrien</span>
+                </div>
+                <div class="country-badge">
+                    <span class="country-flag">🇩🇿</span>
+                    <span class="country-name">Algerien</span>
+                </div>
+                <div class="country-badge">
+                    <span class="country-flag">🇪🇬</span>
+                    <span class="country-name">Ägypten</span>
+                </div>
+                <div class="country-badge">
+                    <span class="country-flag">🇸🇦</span>
+                    <span class="country-name">Saudi-Arabien</span>
+                </div>
+                <div class="country-badge">
+                    <span class="country-flag">🇦🇪</span>
+                    <span class="country-name">VAE</span>
+                </div>
+                <div class="country-badge">
+                    <span class="country-flag">🇩🇪</span>
+                    <span class="country-name">Deutschland</span>
+                </div>
+            </div>
+            <div class="network-cta reveal">
+                <h3>
+                    <span data-de="true">Import aus aller Welt ·</span>
+                    <span data-en="true">Import from Worldwide ·</span>
+                    <span class="gold">
+                        <span data-de="true">Export nach MENA</span>
+                        <span data-en="true">Export to MENA</span>
+                    </span>
+                </h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Request Form -->
+    <section class="quote-section" id="quote">
+        <div class="section-max">
+            <div class="section-header reveal">
+                <h2>
+                    <span data-de="true">Angebot</span>
+                    <span data-en="true">Request</span>
+                    <span class="gold">Anfragen</span>
+                </h2>
+                <p data-de="true">Kontaktieren Sie uns für ein individuelles Angebot</p>
+                <p data-en="true">Contact us for a customized quote</p>
+            </div>
+            <div class="quote-grid">
+                <div class="quote-benefits reveal">
+                    <h4>
+                        <span data-de="true">Warum Adam Krone?</span>
+                        <span data-en="true">Why Adam Krone?</span>
+                    </h4>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div class="benefit-text" data-de="true">
+                            Mehr als 15 Jahre Erfahrung in internationaler Logistik
+                        </div>
+                        <div class="benefit-text" data-en="true">
+                            Over 15 years of experience in international logistics
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div class="benefit-text" data-de="true">
+                            Tiefes Verständnis der MENA-Märkte und lokaler Regelungen
+                        </div>
+                        <div class="benefit-text" data-en="true">
+                            Deep understanding of MENA markets and local regulations
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div class="benefit-text" data-de="true">
+                            Maßgeschneiderte Lösungen für komplexe Anforderungen
+                        </div>
+                        <div class="benefit-text" data-en="true">
+                            Customized solutions for complex requirements
+                        </div>
+                    </div>
+                </div>
+                <form class="quote-form reveal" onsubmit="handleQuoteSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>
+                                <span data-de="true">Name *</span>
+                                <span data-en="true">Name *</span>
+                            </label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <span data-de="true">Firma</span>
+                                <span data-en="true">Company</span>
+                            </label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>
+                                <span data-de="true">E-Mail *</span>
+                                <span data-en="true">Email *</span>
+                            </label>
+                            <input type="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <span data-de="true">Telefon</span>
+                                <span data-en="true">Phone</span>
+                            </label>
+                            <input type="tel">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>
+                                <span data-de="true">Leistung *</span>
+                                <span data-en="true">Service *</span>
+                            </label>
+                            <select required>
+                                <option value="" selected>
+                                    <span data-de="true">Bitte wählen...</span>
+                                    <span data-en="true">Please select...</span>
+                                </option>
+                                <option value="oil-gas">
+                                    <span data-de="true">Öl & Gas Logistik</span>
+                                    <span data-en="true">Oil & Gas Logistics</span>
+                                </option>
+                                <option value="heavy-equipment">
+                                    <span data-de="true">Schwermaschinentransport</span>
+                                    <span data-en="true">Heavy Equipment Export</span>
+                                </option>
+                                <option value="vehicle">
+                                    <span data-de="true">Fahrzeugexport</span>
+                                    <span data-en="true">Vehicle Export</span>
+                                </option>
+                                <option value="road">
+                                    <span data-de="true">Straßenbau & Infrastruktur</span>
+                                    <span data-en="true">Road & Infrastructure</span>
+                                </option>
+                                <option value="aviation">
+                                    <span data-de="true">Luftfahrt-Logistik</span>
+                                    <span data-en="true">Aviation Logistics</span>
+                                </option>
+                                <option value="catering">
+                                    <span data-de="true">Catering</span>
+                                    <span data-en="true">Catering</span>
+                                </option>
+                                <option value="personnel">
+                                    <span data-de="true">Technisches Personal</span>
+                                    <span data-en="true">Technical Personnel</span>
+                                </option>
+                                <option value="agriculture">
+                                    <span data-de="true">Agrar & Industrie</span>
+                                    <span data-en="true">Agriculture & Industry</span>
+                                </option>
+                                <option value="import">
+                                    <span data-de="true">Globaler Import</span>
+                                    <span data-en="true">Global Import</span>
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <span data-de="true">Herkunftsland</span>
+                                <span data-en="true">Origin Country</span>
+                            </label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <span data-de="true">Zielland *</span>
+                            <span data-en="true">Destination Country *</span>
+                        </label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <span data-de="true">Nachricht *</span>
+                            <span data-en="true">Message *</span>
+                        </label>
+                        <textarea required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <span data-de="true">Angebot anfordern →</span>
+                        <span data-en="true">Request Quote →</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-max">
+            <div class="section-header reveal">
+                <h2>
+                    <span data-de="true">Was unsere</span>
+                    <span data-en="true">What Our</span>
+                    <span class="gold">
+                        <span data-de="true">Kunden sagen</span>
+                        <span data-en="true">Clients Say</span>
+                    </span>
+                </h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <p class="testimonial-text" data-de="true">
+                        "Adam Krone hat unseren großen Export nach den Irak professionell abgewickelt. Die Kommunikation war exzellent und alle Lieferungen kamen pünktlich an."
+                    </p>
+                    <p class="testimonial-text" data-en="true">
+                        "Adam Krone professionally handled our major export to Iraq. Communication was excellent and all deliveries arrived on time."
+                    </p>
+                    <div class="testimonial-author">Ahmed Al-Rashid</div>
+                    <div class="testimonial-company">Baghdad Industrial Co.</div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <p class="testimonial-text" data-de="true">
+                        "Ihre Expertise im Öl- und Gassektor ist beeindruckend. Wir vertrauen Adam Krone seit Jahren für unsere kritischen Lieferungen nach Libyen."
+                    </p>
+                    <p class="testimonial-text" data-en="true">
+                        "Their expertise in the oil and gas sector is impressive. We have trusted Adam Krone for years for our critical shipments to Libya."
+                    </p>
+                    <div class="testimonial-author">Maria Schmidt</div>
+                    <div class="testimonial-company">German Energy Solutions</div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <p class="testimonial-text" data-de="true">
+                        "Von Deutschland bis nach Ägypten – zuverlässig, effizient und professionell. Ein echter Partner für den internationalen Handel."
+                    </p>
+                    <p class="testimonial-text" data-en="true">
+                        "From Germany to Egypt – reliable, efficient and professional. A true partner for international trade."
+                    </p>
+                    <div class="testimonial-author">Omar Hassan</div>
+                    <div class="testimonial-company">Cairo Logistics Group</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>
+                    <span data-de="true">Kontakt</span>
+                    <span data-en="true">Contact</span>
+                    <span class="gold">Adam Krone</span>
+                </h3>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h5 data-de="true">Adresse</h5>
+                        <h5 data-en="true">Address</h5>
+                        <p>Adam Krone Import Export und Logistik UG</p>
+                        <p>Karlstraße 5/1</p>
+                        <p>71254 Ditzingen, Deutschland</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <h5>
+                            <span data-de="true">Telefon</span>
+                            <span data-en="true">Phone</span>
+                        </h5>
+                        <a href="tel:+491785744311">+49 178 574 4311</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉</div>
+                    <div class="contact-details">
+                        <h5>Email</h5>
+                        <a href="mailto:info@adam-krone.de">info@adam-krone.de</a>
+                    </div>
+                </div>
+            </div>
+            <div class="map-wrapper">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2596.2345678901234!2d9.061234567890123!3d48.82678901234567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4799d6a8b0c1d2f3%3A0x1234567890abcdef!2sKarlstra%C3%9Fe%2C%2071254%20Ditzingen!5e0!3m2!1sen!2sde!4v1234567890123" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-max">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <div class="logo">ADAM KRONE</div>
+                        <div class="logo-tagline">IMPORT · EXPORT · LOGISTIK</div>
+                    </div>
+                    <p class="footer-description" data-de="true">
+                        Ihr zuverlässiger Partner für internationalen Handel und Logistiklösungen zwischen Deutschland und der MENA-Region.
+                    </p>
+                    <p class="footer-description" data-en="true">
+                        Your reliable partner for international trade and logistics solutions between Germany and the MENA region.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="footer-heading" data-de="true">Navigation</h4>
+                    <h4 class="footer-heading" data-en="true">Navigation</h4>
+                    <div class="footer-links">
+                        <a href="#about">
+                            <span data-de="true">Über uns</span>
+                            <span data-en="true">About Us</span>
+                        </a>
+                        <a href="#services">
+                            <span data-de="true">Leistungen</span>
+                            <span data-en="true">Services</span>
+                        </a>
+                        <a href="#network">
+                            <span data-de="true">Märkte</span>
+                            <span data-en="true">Markets</span>
+                        </a>
+                        <a href="#contact">
+                            <span data-de="true">Kontakt</span>
+                            <span data-en="true">Contact</span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-heading" data-de="true">Kontakt</h4>
+                    <h4 class="footer-heading" data-en="true">Contact</h4>
+                    <div class="footer-links">
+                        <div class="footer-contact-item">
+                            <span class="icon">📍</span>
+                            <span>Karlstraße 5/1, 71254 Ditzingen</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span class="icon">📞</span>
+                            <a href="tel:+491785744311">+49 178 574 4311</a>
+                        </div>
+                        <div class="footer-contact-item">
+                            <span class="icon">✉</span>
+                            <a href="mailto:info@adam-krone.de">info@adam-krone.de</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © Adam Krone Import Export und Logistik UG. Alle Rechte vorbehalten.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky Quote Button -->
+    <a href="#quote" class="sticky-quote">
+        <span data-de="true">Angebot anfragen</span>
+        <span data-en="true">Request Quote</span>
+    </a>
+
+    <script>
+        // Language Switching
+        function setLanguage(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.documentElement.setAttribute('lang', lang);
+
+            // Update active button
+            document.querySelectorAll('.lang-pill button').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.trim().toLowerCase() === lang) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Navbar Scroll Effect
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            navLinks.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.remove('active');
+                document.querySelector('.mobile-menu-btn').classList.remove('active');
+            });
+        });
+
+        // Stats Counter Animation
+        const stats = document.querySelectorAll('.stat-number');
+        let statsAnimated = false;
+
+        function animateStats() {
+            stats.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        stat.textContent = Math.floor(current) + '+';
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        stat.textContent = target + '+';
+                    }
+                };
+
+                updateCounter();
+            });
+        }
+
+        // Intersection Observer for Stats Animation
+        const statsSection = document.getElementById('stats');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !statsAnimated) {
+                    animateStats();
+                    statsAnimated = true;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(statsSection);
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Quote Form Submit Handler
+        function handleQuoteSubmit(event) {
+            event.preventDefault();
+            const lang = document.body.getAttribute('data-lang');
+            const message = lang === 'de'
+                ? 'Vielen Dank für Ihre Anfrage! Wir werden uns schnellstmöglich bei Ihnen melden.'
+                : 'Thank you for your request! We will get back to you as soon as possible.';
+            alert(message);
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
