@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam Montage — Küchen-, Möbelmontage &amp; Transport</title>
+<meta name="description" content="Erstklassige Küchen- & Möbelmontage mit integriertem Transport. Spezialisiert auf IKEA, Nobilia, Nolte & Schüller.">
+<style>
+:root{
+  --blue:#1a5fb4;
+  --blue-dark:#0d3b78;
+  --blue-light:#eaf2fc;
+  --dark:#1c2530;
+  --gray:#5c6b7a;
+  --white:#ffffff;
+  --accent:#f5a623;
+  --shadow:0 10px 30px rgba(13,59,120,.10);
+  --radius:14px;
+  /* Marken-Palette (aus Logo) */
+  --navy:#18283f;
+  --navy-soft:#2b3a54;
+  --gold:#c58521;
+  --gold-dark:#a86e14;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
+  color:var(--dark);
+  background:var(--white);
+  line-height:1.6;
+  overflow-x:hidden;
+  width:100%;
+  max-width:100vw;
+}
+img,svg,video{max-width:100%;height:auto}
+h1,h2,h3,h4{overflow-wrap:break-word;word-wrap:break-word;hyphens:auto}
+input,select,textarea,button{font-family:inherit;max-width:100%}
+.container{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,24px);width:100%}
+
+/* ===== HEADER ===== */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid #e8eef5;
+}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.logo{display:flex;align-items:center;gap:16px;text-decoration:none}
+.logo-mark{
+  width:70px;height:70px;border-radius:18px;flex-shrink:0;
+  background:linear-gradient(140deg,#2a6fc9 0%,var(--blue) 45%,var(--blue-dark) 100%);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 22px rgba(26,95,180,.30), inset 0 1px 0 rgba(255,255,255,.22);
+}
+.logo-mark svg{width:54px;height:54px;display:block}
+.logo-text{font-size:38px;font-weight:900;color:var(--dark);letter-spacing:-1.2px;line-height:1.05}
+.logo-text span{color:var(--blue)}
+.logo-sub{display:block;font-size:17px;font-weight:800;color:#33434f;letter-spacing:2.4px;text-transform:uppercase;margin-top:6px}
+nav ul{display:flex;list-style:none;gap:32px;align-items:center}
+nav a{color:var(--dark);text-decoration:none;font-weight:600;font-size:15px;transition:color .2s;display:inline-block;padding:9px 0}
+nav a:hover{color:var(--blue)}
+.btn{
+  display:inline-block;padding:12px 26px;border-radius:8px;
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  color:#fff;text-decoration:none;font-weight:700;font-size:15px;
+  box-shadow:0 6px 18px rgba(26,95,180,.35);
+  transition:transform .2s,box-shadow .2s;white-space:nowrap;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(26,95,180,.45)}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{width:26px;height:3px;background:var(--dark);border-radius:2px;transition:.3s}
+
+/* ===== HERO ===== */
+.hero{
+  background:
+    radial-gradient(ellipse at 85% 15%,rgba(26,95,180,.08),transparent 55%),
+    radial-gradient(ellipse at 10% 90%,rgba(245,166,35,.07),transparent 50%),
+    var(--blue-light);
+  padding:110px 0 100px;position:relative;overflow:hidden;
+}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
+.badge{
+  display:inline-flex;align-items:center;gap:11px;
+  background:#fff;border:2px solid #d8e4f2;border-radius:50px;
+  padding:13px 26px;font-size:18px;font-weight:800;color:var(--blue-dark);
+  box-shadow:var(--shadow);margin-bottom:28px;
+}
+.badge svg{width:22px;height:22px}
+h1{
+  font-size:clamp(34px,4.5vw,56px);
+  line-height:1.12;font-weight:800;letter-spacing:-1.5px;
+  color:var(--dark);margin-bottom:22px;
+}
+h1 em{font-style:normal;color:var(--blue);position:relative}
+.hero p{font-size:19px;color:#48586a;max-width:560px;margin-bottom:34px;line-height:1.65}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:38px}
+.btn-outline{
+  display:inline-block;padding:12px 26px;border-radius:8px;
+  border:2px solid var(--blue);color:var(--blue);
+  text-decoration:none;font-weight:700;font-size:15px;transition:.2s;
+}
+.btn-outline:hover{background:var(--blue);color:#fff}
+.brands{display:flex;gap:11px;flex-wrap:wrap;align-items:center}
+.brands-label{font-size:15px;font-weight:800;color:#3d4d5d;text-transform:uppercase;letter-spacing:1.4px;margin-right:6px}
+.brand{
+  background:#fff;border:2px solid #d8e4f2;border-radius:9px;
+  padding:11px 20px;font-weight:800;font-size:17.5px;color:var(--dark);
+  box-shadow:0 3px 10px rgba(13,59,120,.06);
+}
+/* Hero illustration */
+.hero-visual{position:relative;display:flex;justify-content:center}
+.kitchen-card{
+  background:#fff;border-radius:20px;padding:38px;
+  box-shadow:0 24px 60px rgba(13,59,120,.16);
+  transform:rotate(1.5deg);max-width:420px;width:100%;
+}
+.kitchen-card svg{width:100%;height:auto;display:block}
+.quote-float{
+  position:absolute;bottom:-22px;left:-14px;
+  background:#fff;border-radius:14px;padding:18px 26px;
+  box-shadow:0 14px 34px rgba(13,59,120,.20);
+  display:flex;align-items:center;gap:12px;transform:rotate(-2deg);
+  border:2px solid #e8f0fa;
+}
+.quote-float .stars{color:var(--accent);font-size:24px;letter-spacing:2px;line-height:1}
+.quote-float b{display:block;font-size:26px;font-weight:900;color:var(--dark);line-height:1.1}
+.quote-float small{font-size:16px;color:#3d4d5d;font-weight:800}
+
+/* ===== SECTIONS ===== */
+section{padding:90px 0}
+.sec-head{text-align:center;max-width:700px;margin:0 auto 56px}
+.kicker{
+  display:inline-block;font-size:15px;font-weight:800;
+  color:var(--blue);text-transform:uppercase;letter-spacing:2.2px;margin-bottom:14px;
+}
+h2{font-size:clamp(28px,3.5vw,40px);font-weight:800;letter-spacing:-1px;margin-bottom:14px}
+.sec-head p{color:#48586a;font-size:18px;line-height:1.65}
+
+/* Leistungen */
+.services{background:#fff}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.service{
+  background:var(--blue-light);border-radius:var(--radius);
+  padding:34px 28px;transition:transform .25s,box-shadow .25s;
+  border:1px solid transparent;position:relative;overflow:hidden;
+}
+.service:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:#cfe0f3;background:#fff}
+.service-icon{
+  width:58px;height:58px;border-radius:14px;
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+  display:flex;align-items:center;justify-content:center;margin-bottom:20px;
+}
+.service-icon svg{width:30px;height:30px}
+.service h3{font-size:21px;font-weight:800;margin-bottom:11px;letter-spacing:-.3px}
+.service p{font-size:16px;color:#4d5d6d;line-height:1.62}
+.service .num{
+  position:absolute;top:18px;right:22px;
+  font-size:44px;font-weight:900;color:rgba(26,95,180,.10);line-height:1;
+}
+
+/* Qualität */
+.quality{background:var(--dark);color:#fff}
+.quality .kicker{color:#8dc0f5}
+.quality .sec-head h2{color:#fff}
+.quality .sec-head p{color:#b8c6d4}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.q-card{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--radius);padding:36px 30px;transition:.25s;
+}
+.q-card:hover{background:rgba(255,255,255,.09);border-color:rgba(125,180,240,.4);transform:translateY(-4px)}
+.q-icon{width:56px;height:56px;border-radius:50%;background:rgba(125,180,240,.15);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.q-icon svg{width:28px;height:28px}
+.q-card h3{font-size:20px;font-weight:800;margin-bottom:11px}
+.q-card p{font-size:16px;color:#b8c6d4;line-height:1.62}
+.gold-seal{
+  display:inline-flex;align-items:center;gap:10px;margin-top:18px;
+  background:linear-gradient(135deg,#f5a623,#e8951a);color:#1c2530;
+  font-weight:900;font-size:15px;border-radius:50px;padding:11px 22px;
+}
+.rating-big{
+  font-size:52px;font-weight:900;color:#f5a623;letter-spacing:-1px;display:block;margin-top:8px;
+}
+
+/* Ablauf */
+.process{background:var(--blue-light)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:step}
+.step{background:#fff;border-radius:var(--radius);padding:30px 26px;box-shadow:0 4px 14px rgba(13,59,120,.06);position:relative}
+.step::before{
+  counter-increment:step;content:counter(step,decimal-leading-zero);
+  font-size:16px;font-weight:900;color:var(--blue);
+  background:var(--blue-light);border-radius:8px;padding:7px 13px;display:inline-block;margin-bottom:16px;
+}
+.step h3{font-size:18px;font-weight:800;margin-bottom:9px}
+.step p{font-size:15.5px;color:#4d5d6d;line-height:1.62}
+
+/* Kontakt */
+.contact{background:#fff}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start}
+.contact-info h2{text-align:left}
+.contact-info p{color:#48586a;margin-bottom:30px;font-size:18px;line-height:1.65}
+.info-line{display:flex;align-items:center;gap:16px;padding:20px 0;border-bottom:1px solid #edf2f8}
+.info-icon{
+  width:52px;height:52px;border-radius:12px;flex-shrink:0;
+  background:var(--blue-light);display:flex;align-items:center;justify-content:center;
+}
+.info-icon svg{width:24px;height:24px}
+.info-line b{display:block;font-size:14px;color:#48586a;font-weight:800;text-transform:uppercase;letter-spacing:1.1px;margin-bottom:2px}
+.info-line span{font-size:19px;font-weight:800;color:var(--dark);text-decoration:none}
+a.info-val{color:var(--blue);text-decoration:none;display:inline-block;padding:6px 0;font-size:19px;font-weight:800}
+a.info-val:hover{text-decoration:underline}
+
+form{
+  background:var(--blue-light);border-radius:18px;padding:38px;
+  border:1px solid #d8e4f2;
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+label{display:block;font-size:15px;font-weight:800;color:var(--dark);margin-bottom:7px}
+input,select,textarea{
+  width:100%;padding:14px 16px;border:2px solid #d8e4f2;border-radius:9px;
+  font-size:16px;font-family:inherit;background:#fff;color:var(--dark);
+  transition:border-color .2s;outline:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,95,180,.10)}
+textarea{min-height:130px;resize:vertical}
+.field{margin-bottom:18px}
+form .btn{width:100%;border:none;cursor:pointer;font-size:17px;padding:16px;margin-top:6px}
+.form-note{font-size:14px;color:#48586a;text-align:center;margin-top:14px;line-height:1.55}
+
+/* Footer */
+footer{background:var(--dark);color:#b8c6d4;padding:60px 0 30px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;margin-bottom:44px}
+.footer-grid .logo-text{color:#fff}
+footer h4{color:#fff;font-size:16px;font-weight:800;margin-bottom:16px;text-transform:uppercase;letter-spacing:1.2px}
+footer ul{list-style:none}
+footer li{margin-bottom:8px}
+footer a{color:#b8c6d4;text-decoration:none;font-size:16px;transition:color .2s;display:inline-block;padding:8px 0}
+footer a:hover{color:#8dc0f5}
+.footer-about p{font-size:16px;margin-top:16px;max-width:340px;line-height:1.65}
+.copyright{
+  border-top:1px solid rgba(255,255,255,.1);padding-top:26px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:15px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1200px){
+  .container{padding:0 28px}
+  .grid-4{grid-template-columns:repeat(4,1fr);gap:18px}
+}
+@media(max-width:1100px){
+  nav ul{gap:22px}
+  nav a{font-size:14px}
+  .hero-grid{gap:40px}
+}
+@media(max-width:1000px){
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .hero p{max-width:100%}
+  .hero-visual{order:-1}
+  .kitchen-card{max-width:440px;transform:none}
+  .quote-float{left:auto;right:8px}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .contact-grid{grid-template-columns:1fr;gap:44px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:36px}
+}
+@media(max-width:860px){
+  section{padding:70px 0}
+  .sec-head{margin-bottom:40px}
+  #nav-menu{gap:16px}
+}
+@media(max-width:768px){
+  nav ul{
+    display:none;position:absolute;top:100%;left:0;right:0;
+    background:#fff;flex-direction:column;gap:0;padding:10px 24px 22px;
+    border-bottom:1px solid #e8eef5;box-shadow:0 20px 40px rgba(13,59,120,.12);
+    max-height:calc(100vh - 80px);overflow-y:auto;
+  }
+  nav ul.open{display:flex}
+  nav ul li{width:100%;padding:14px 0;border-bottom:1px solid #f0f5fa}
+  nav ul li:last-child{border-bottom:none;padding-top:16px}
+  nav ul li a.btn{display:block;text-align:center;margin:0!important}
+  .burger{display:flex}
+  .nav{padding:12px 0}
+  .logo-text{font-size:34px}
+  .logo-mark{width:64px;height:64px;border-radius:17px}
+  .logo-mark svg{width:50px;height:50px}
+  .logo-sub{font-size:15.5px;letter-spacing:1.7px}
+  .hero{padding:50px 0 60px}
+  .badge{font-size:15px;padding:10px 18px;margin-bottom:22px}
+  .badge svg{width:18px;height:18px}
+  .hero p{font-size:18px}
+  .hero-actions{gap:12px}
+  .hero-actions .btn,.hero-actions .btn-outline{width:100%;text-align:center}
+  .brands{gap:9px}
+  .brands-label{width:100%;margin-bottom:4px;font-size:14.5px}
+  .brand{font-size:16.5px;padding:10px 17px}
+  .grid-3{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:30px}
+  .form-row{grid-template-columns:1fr;gap:0}
+  form{padding:28px 22px;border-radius:14px}
+  .copyright{flex-direction:column;text-align:center;gap:6px}
+  .quote-float{padding:14px 20px;bottom:-18px;right:0}
+  .quote-float b{font-size:24px}
+  .quote-float small{font-size:15.5px}
+  .quote-float .stars{font-size:21px}
+  .rating-big{font-size:46px}
+  .service p,.q-card p,.step p,.sec-head p{font-size:16px}
+  footer a{font-size:15.5px}
+}
+@media(max-width:520px){
+  section{padding:56px 0}
+  .container{padding:0 18px}
+  .hero{padding:40px 0 52px}
+  .kitchen-card{padding:22px;border-radius:16px}
+  .grid-4{grid-template-columns:1fr;gap:16px}
+  .steps{grid-template-columns:1fr;gap:16px}
+  .service{padding:26px 22px}
+  .service h3{font-size:20px}
+  .service .num{font-size:36px;top:14px;right:16px}
+  .service-icon{width:52px;height:52px;border-radius:12px;margin-bottom:16px}
+  .service-icon svg{width:27px;height:27px}
+  .q-card{padding:28px 22px}
+  .q-card h3{font-size:19px}
+  .step{padding:24px 20px}
+  .step h3{font-size:17.5px}
+  .info-line{gap:13px;padding:16px 0}
+  .info-icon{width:46px;height:46px;border-radius:11px}
+  .info-icon svg{width:21px;height:21px}
+  .info-line span,a.info-val{font-size:17.5px;word-break:break-word}
+  .info-line b{font-size:14.5px}
+  .logo-sub{font-size:14px;letter-spacing:1.2px}
+  .brands-label{font-size:14.5px}
+  .quote-float small{font-size:15px}
+  .quote-float b{font-size:21px}
+  form{padding:24px 18px}
+  label{font-size:14.5px}
+  input,select,textarea{padding:13px 14px;font-size:16px}
+  .contact-info h2{text-align:left}
+  .quote-float{position:static;transform:none;margin-top:0;margin-bottom:8px;justify-content:center;box-shadow:0 8px 22px rgba(13,59,120,.14);width:100%}
+  .sec-head p{font-size:17px}
+  .kicker{font-size:14.5px;letter-spacing:1.8px}
+  .form-note{font-size:14px}
+  /* Touch-freundliche Ziele */
+  footer a{display:inline-block;padding:9px 0;min-height:44px}
+  a.info-val{display:inline-block;padding:8px 0;min-height:44px}
+  .brand{min-height:40px}
+  .btn,.btn-outline{min-height:50px;display:flex;align-items:center;justify-content:center}
+}
+@media(max-width:380px){
+  .logo-text{font-size:30px}
+  .logo-mark{width:58px;height:58px;border-radius:15px}
+  .logo-mark svg{width:46px;height:46px}
+  .logo-sub{font-size:14.5px;letter-spacing:1.2px}
+  h1{letter-spacing:-.6px}
+  .btn,.btn-outline{padding:12px 18px;font-size:14.5px}
+  .brand{font-size:14px;padding:8px 13px}
+  .badge{font-size:15px;padding:10px 18px}
+  .service h3{font-size:18.5px}
+  .rating-big{font-size:38px}
+  .q-card h3,.sec-head h2{letter-spacing:-.6px}
+  .quote-float small{font-size:14.5px}
+  .brands-label{font-size:14.5px}
+}
+/* Landscape phones */
+@media(max-height:500px) and (orientation:landscape){
+  .hero{padding:36px 0}
+  nav ul{max-height:70vh;overflow-y:auto}
+}
+/* Große Bildschirme */
+@media(min-width:1600px){
+  .container{max-width:1320px}
+  .hero{padding:130px 0 120px}
+}
+/* Reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  html{scroll-behavior:auto}
+}
+
+/* ===== DSGVO COOKIE-BANNER ===== */
+.cookie-banner{
+  position:fixed;left:0;right:0;bottom:0;z-index:9999;
+  background:#fff;border-top:3px solid var(--blue);
+  box-shadow:0 -10px 40px rgba(13,59,120,.18);
+  transform:translateY(100%);opacity:0;visibility:hidden;
+  transition:transform .4s cubic-bezier(.2,.8,.3,1),opacity .3s,visibility .3s;
+  max-height:92vh;overflow-y:auto;
+}
+.cookie-banner.show{transform:translateY(0);opacity:1;visibility:visible}
+.cb-inner{
+  max-width:1180px;margin:0 auto;padding:22px clamp(16px,4vw,24px);
+  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+}
+.cb-head{display:flex;gap:16px;align-items:flex-start;flex:1 1 460px;min-width:0}
+.cb-icon{
+  width:48px;height:48px;border-radius:12px;flex-shrink:0;
+  background:var(--blue-light);color:var(--blue);
+  display:flex;align-items:center;justify-content:center;
+}
+.cb-icon svg{width:25px;height:25px}
+.cb-head h2{font-size:19px;font-weight:800;color:var(--dark);margin-bottom:7px;letter-spacing:-.3px}
+.cb-head p{font-size:15px;color:#48586a;line-height:1.58;margin:0}
+.cb-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;flex:0 0 auto}
+.cb-btn{
+  border:none;cursor:pointer;font-family:inherit;
+  border-radius:9px;font-weight:800;font-size:15.5px;
+  padding:13px 24px;transition:transform .18s,box-shadow .18s,background .18s,color .18s;
+  white-space:nowrap;min-height:48px;display:inline-flex;align-items:center;justify-content:center;
+}
+.cb-primary{
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;
+  box-shadow:0 6px 18px rgba(26,95,180,.32);
+}
+.cb-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(26,95,180,.42)}
+.cb-second{background:var(--blue-light);color:var(--blue-dark);border:2px solid #cfe0f3}
+.cb-second:hover{background:#dbeafb}
+.cb-link{background:none;color:var(--blue);padding:13px 6px;text-decoration:underline;font-weight:700}
+.cb-link:hover{color:var(--blue-dark)}
+
+/* ===== MODALS (Impressum / Datenschutz) ===== */
+.modal-overlay{
+  position:fixed;inset:0;z-index:10000;
+  background:rgba(16,26,38,.62);backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;
+}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal-box{
+  background:#fff;border-radius:16px;width:100%;max-width:760px;
+  max-height:88vh;display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+  transform:translateY(14px) scale(.98);transition:transform .25s;
+}
+.modal-overlay.open .modal-box{transform:translateY(0) scale(1)}
+.modal-head{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:22px 26px;border-bottom:1px solid #e8eef5;flex-shrink:0;
+}
+.modal-head h2{font-size:22px;font-weight:800;letter-spacing:-.4px;margin:0}
+.modal-close{
+  border:none;background:var(--blue-light);color:var(--dark);
+  width:42px;height:42px;border-radius:10px;cursor:pointer;
+  font-size:26px;line-height:1;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;transition:background .2s;
+}
+.modal-close:hover{background:#dbeafb}
+.modal-body{padding:24px 26px 32px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.modal-body h3{
+  font-size:16.5px;font-weight:800;color:var(--blue-dark);
+  margin:20px 0 8px;letter-spacing:-.2px;
+}
+.modal-body h3:first-child{margin-top:0}
+.modal-body p{font-size:15.5px;color:#48586a;line-height:1.68;margin-bottom:12px}
+.modal-body a{color:var(--blue);text-decoration:none;font-weight:700}
+.modal-body a:hover{text-decoration:underline}
+.modal-dl{
+  display:inline-block;margin-top:16px;padding:12px 20px;
+  background:var(--blue-light);border-radius:9px;font-size:15px;font-weight:800;
+}
+
+@media(max-width:900px){
+  .cb-inner{flex-direction:column;align-items:stretch;gap:18px}
+  .cb-actions{justify-content:flex-start}
+  .cb-primary,.cb-second{flex:1 1 auto;min-width:150px}
+}
+@media(max-width:520px){
+  .cb-inner{padding:18px}
+  .cb-head{gap:12px}
+  .cb-icon{width:42px;height:42px;border-radius:11px}
+  .cb-icon svg{width:22px;height:22px}
+  .cb-head h2{font-size:17.5px}
+  .cb-head p{font-size:14.5px}
+  .cb-actions{flex-direction:column;align-items:stretch;gap:10px}
+  .cb-btn{width:100%}
+  .cb-link{text-align:center;padding:8px 6px;min-height:auto}
+  .modal-overlay{padding:0;align-items:flex-end}
+  .modal-box{max-height:94vh;border-radius:18px 18px 0 0;max-width:100%}
+  .modal-head{padding:18px 18px 16px}
+  .modal-head h2{font-size:19px}
+  .modal-close{width:40px;height:40px;font-size:24px}
+  .modal-body{padding:20px 18px 28px}
+  .modal-body p{font-size:15px}
+  .modal-body h3{font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="container nav">
+    <a class="logo" href="#top">
+      <div class="logo-mark">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Adam Montage">
+          <!-- A: Crossbar wird Sägeblatt, Säge wird Ladefläche -->
+          <path d="M27 8 L45 8 L71 88 L53 88 L47 66 L29 66 L23 88 L5 88 Z" fill="#ffffff"/>
+          <path d="M36.5 18 L46 54 L27 54 Z" fill="#1a5fb4"/>
+          <!-- Sägeblatt-Zähne -->
+          <path d="M24 54 H88 L96 50 L94 66 L91 72 L88 66 L85 72 L82 66 L79 72 L76 66 L73 72 L70 66 L67 72 L64 66 L61 72 L58 66 H24 Z" fill="#ffffff"/>
+          <!-- Pickup -->
+          <rect x="70" y="75" width="20" height="13" rx="2" fill="#ffffff"/>
+          <path d="M90 89 V80 h6.5 a3 3 0 0 1 3 3 v6 Z" fill="#ffffff"/>
+          <rect x="92" y="82" width="6" height="5" rx="1" fill="#1a5fb4"/>
+          <circle cx="77" cy="89" r="5" fill="#ffffff"/>
+          <circle cx="77" cy="89" r="2" fill="#1a5fb4"/>
+          <circle cx="94" cy="89" r="5" fill="#ffffff"/>
+          <circle cx="94" cy="89" r="2" fill="#1a5fb4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-text">Adam <span>Montage</span>
+          <span class="logo-sub">Küchen · Möbel · Transport</span>
+        </div>
+      </div>
+    </a>
+    <nav>
+      <ul id="nav-menu">
+        <li><a href="#leistungen">Leistungen</a></li>
+        <li><a href="#transport">Transport</a></li>
+        <li><a href="#qualitaet">Qualität</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+        <li><a class="btn" href="#kontakt" style="margin-left:8px">Kostenloses Angebot</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div>
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17l-6.1 3.6 1.4-6.8L2.2 9.1l6.9-.8L12 2z" fill="#c58521"/></svg>
+        Gold Partner · Bewertung 1,1
+      </div>
+      <h1>Erstklassige <em>Küchen- &amp; Möbelmontage</em> mit integriertem Transport</h1>
+      <p>Professionelle Montage von Marken-Küchen und Möbeln aller Art — millimetergenau, sauber und termintreu. Vom Transport über die Montage bis zum letzten Griff: alles aus einer Hand.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#kontakt">Kostenloses Angebot anfordern</a>
+        <a class="btn-outline" href="#leistungen">Unsere Leistungen</a>
+      </div>
+      <div class="brands">
+        <span class="brands-label">Spezialisiert auf</span>
+        <span class="brand">IKEA</span>
+        <span class="brand">nobilia</span>
+        <span class="brand">Nolte</span>
+        <span class="brand">Schüller</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="kitchen-card">
+        <svg viewBox="0 0 360 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="40" width="320" height="180" rx="10" fill="#eaf2fc"/>
+          <rect x="20" y="40" width="320" height="18" rx="6" fill="#1a5fb4"/>
+          <rect x="34" y="66" width="86" height="132" rx="7" fill="#fff" stroke="#cfe0f3" stroke-width="2.5"/>
+          <line x1="34" y1="104" x2="120" y2="104" stroke="#cfe0f3" stroke-width="2.5"/>
+          <line x1="34" y1="142" x2="120" y2="142" stroke="#cfe0f3" stroke-width="2.5"/>
+          <circle cx="77" cy="87" r="4" fill="#1a5fb4"/>
+          <circle cx="77" cy="125" r="4" fill="#1a5fb4"/>
+          <circle cx="77" cy="164" r="4" fill="#1a5fb4"/>
+          <rect x="134" y="66" width="86" height="132" rx="7" fill="#fff" stroke="#cfe0f3" stroke-width="2.5"/>
+          <line x1="134" y1="104" x2="220" y2="104" stroke="#cfe0f3" stroke-width="2.5"/>
+          <line x1="134" y1="142" x2="220" y2="142" stroke="#cfe0f3" stroke-width="2.5"/>
+          <circle cx="177" cy="87" r="4" fill="#1a5fb4"/>
+          <circle cx="177" cy="125" r="4" fill="#1a5fb4"/>
+          <circle cx="177" cy="164" r="4" fill="#1a5fb4"/>
+          <rect x="234" y="66" width="92" height="132" rx="7" fill="#fff" stroke="#cfe0f3" stroke-width="2.5"/>
+          <path d="M234 92h92M234 120h92M234 148h92M234 176h92" stroke="#cfe0f3" stroke-width="2"/>
+          <circle cx="280" cy="106" r="4" fill="#f5a623"/>
+          <circle cx="280" cy="134" r="4" fill="#f5a623"/>
+          <circle cx="280" cy="162" r="4" fill="#f5a623"/>
+          <rect x="34" y="216" width="292" height="4" rx="2" fill="#cfe0f3"/>
+          <rect x="14" y="34" width="46" height="16" rx="6" fill="#f5a623"/>
+          <rect x="300" y="34" width="46" height="16" rx="6" fill="#f5a623"/>
+        </svg>
+      </div>
+      <div class="quote-float">
+        <div>
+          <div class="stars">★★★★★</div>
+          <b>Bewertung 1,1</b>
+          <small>Gold Partner</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEISTUNGEN ============ -->
+<section class="services" id="leistungen">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Unsere Leistungen</span>
+      <h2>Alles für Ihre Küche &amp; Ihre Möbel</h2>
+      <p>Vom ersten Handgriff bis zur fertigen Montage — präzise, sauber und zuverlässig.</p>
+    </div>
+    <div class="grid-4">
+      <div class="service">
+        <span class="num">01</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M3 10V6a2 2 0 012-2h4l2 4h8a2 2 0 012 2v0M5 10v8a2 2 0 002 2h10a2 2 0 002-2v-8M9 15h6"/></svg>
+        </div>
+        <h3>Küchenmontage</h3>
+        <p>Kompletter Aufbau Ihrer Küche: Schränke justieren, Arbeitsplatten millimetergenau zuschneiden sowie Anschluss von Wasser und Elektrik.</p>
+      </div>
+      <div class="service">
+        <span class="num">02</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 5l-1 3a3 3 0 006 0L8 5M20 5l-1 3a3 3 0 01-6 0l1-3M9 8v12M15 8v12M9 12h6M6 20h12"/></svg>
+        </div>
+        <h3>Möbelmontage</h3>
+        <p>Fachgerechte Montage sämtlicher Einrichtungsgegenstände — vom Kleiderschrank bis zum kompletten Büro. Präzise und stabil.</p>
+      </div>
+      <div class="service" id="transport">
+        <span class="num">03</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="14" height="11" rx="1"/><path d="M15 10h4l4 4v3h-8M1 13h14M6 17a2 2 0 100 .01M18 17a2 2 0 100 .01"/></svg>
+        </div>
+        <h3>Transport &amp; Logistik</h3>
+        <p>Sicher Transport von Küchen und Möbeln: Be- und Entladung, fachgerechte Verpackung und voller Schutz Ihrer Ware unterwegs.</p>
+      </div>
+      <div class="service">
+        <span class="num">04</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <h3>Demontage &amp; Anpassung</h3>
+        <p>Fachgerechter Abbau, Umbau und Neuaufbau alter wie neuer Küchen und Möbel — inklusive Anpassung an neue Räumlichkeiten.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUALITÄT ============ -->
+<section class="quality" id="qualitaet">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">Qualität &amp; Zertifizierung</span>
+      <h2>Das sprechen unsere Bewertungen</h2>
+      <p>Vertrauen entsteht durch nachvollziehbare Qualität — Projekt für Projekt.</p>
+    </div>
+    <div class="grid-3">
+      <div class="q-card">
+        <div class="q-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#7db4f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5L17 22l-5-3-5 3 1.5-8.5"/></svg>
+        </div>
+        <h3>Gold Partner</h3>
+        <span class="rating-big">1,1</span>
+        <span class="gold-seal">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17l-6.1 3.6 1.4-6.8L2.2 9.1l6.9-.8L12 2z" fill="currentColor"/></svg>
+          Ausgezeichnete Bewertung
+        </span>
+        <p style="margin-top:14px">Geprüfte Gold-Partner-Auszeichnung als Beleg für konstant erstklassige Montagequalität.</p>
+      </div>
+      <div class="q-card">
+        <div class="q-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#7db4f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17l-6.1 3.6 1.4-6.8L2.2 9.1l6.9-.8L12 2z" stroke="#7db4f0"/><path d="M8 12l3 3 5-5" stroke="#7db4f0"/></svg>
+        </div>
+        <h3>Millimetergenau &amp; sauber</h3>
+        <p>Präzision bis auf den Millimeter — Arbeitsplatten exakt zugeschnitten, Schränke perfekt ausgerichtet. Und nach jedem Arbeitstag hinterlassen wir eine saubere Baustelle.</p>
+      </div>
+      <div class="q-card">
+        <div class="q-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#7db4f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3>Voll versichert</h3>
+        <p>Kompletter Haftpflichtschutz für alle Montage- und Transportarbeiten — Ihr Eigentum ist bei uns rundum abgesichert.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABLAUF ============ -->
+<section class="process">
+  <div class="container">
+    <div class="sec-head">
+      <span class="kicker">So einfach geht's</span>
+      <h2>In vier Schritten zum Ergebnis</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>Anfrage stellen</h3>
+        <p> Kontaktieren Sie uns telefonisch oder über das Formular — unkompliziert und unverbindlich.</p>
+      </div>
+      <div class="step">
+        <h3>Termine &amp; Details</h3>
+        <p>Wir besprechen Ihr Projekt, planen die Termine und stimmen alle Details gemeinsam ab.</p>
+      </div>
+      <div class="step">
+        <h3>Transport &amp; Montage</h3>
+        <p>Wir liefern, montieren und justieren — millimetergenau, sauber und termintreu.</p>
+      </div>
+      <div class="step">
+        <h3>Abnahme &amp; Übergabe</h3>
+        <p>Gemeinsame Endkontrolle aller Arbeiten — erst wenn alles perfekt ist, sind wir fertig.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KONTAKT ============ -->
+<section class="contact" id="kontakt">
+  <div class="container contact-grid">
+    <div class="contact-info">
+      <span class="kicker">Kontakt</span>
+      <h2>Fordern Sie Ihr Angebot an</h2>
+      <p>Beschreiben Sie kurz Ihr Vorhaben — wir melden uns umgehend mit einem unverbindlichen Angebot. Natürlich kostenlos.</p>
+      <div class="info-line">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1a5fb4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.08 4.18 2 2 0 014.06 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <div><b>Telefon</b><a class="info-val" href="tel:+491785744311">+49 178 574 4311</a></div>
+      </div>
+      <div class="info-line">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1a5fb4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg>
+        </div>
+        <div><b>E-Mail</b><a class="info-val" href="mailto:Info.adam.Montage@gmail.com">Info.adam.Montage@gmail.com</a></div>
+      </div>
+      <div class="info-line" style="border:none">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1a5fb4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div><b>Erreichbarkeit</b><span style="color:#2e7d32;font-weight:800">Mo–Sa · zeitnah erreichbar</span></div>
+      </div>
+    </div>
+    <form id="offer-form" onsubmit="return submitForm(event)">
+      <div class="form-row">
+        <div class="field">
+          <label for="f-name">Ihr Name *</label>
+          <input id="f-name" type="text" required placeholder="Max Mustermann">
+        </div>
+        <div class="field">
+          <label for="f-phone">Telefonnummer *</label>
+          <input id="f-phone" type="tel" required placeholder="+49 …">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="f-email">E-Mail-Adresse *</label>
+          <input id="f-email" type="email" required placeholder="max@beispiel.de">
+        </div>
+        <div class="field">
+          <label for="f-service">Gewünschte Leistung *</label>
+          <select id="f-service" required>
+            <option value="" selected disabled>Bitte wählen …</option>
+            <option>Küchenmontage</option>
+            <option>Möbelmontage</option>
+            <option>Transport &amp; Logistik</option>
+            <option>Demontage &amp; Anpassung</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-msg">Ihre Projektdetails</label>
+        <textarea id="f-msg" placeholder="Beschreiben Sie kurz Ihr Vorhaben (Küchenmarke, Umfang, Wunschtermin …)"></textarea>
+      </div>
+      <button type="submit" class="btn">Jetzt Angebot anfordern</button>
+      <p class="form-note">Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten gemäß Datenschutzerklärung zu.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a class="logo" href="#top" style="margin-bottom:6px">
+          <div class="logo-mark">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Adam Montage">
+              <path d="M27 8 L45 8 L71 88 L53 88 L47 66 L29 66 L23 88 L5 88 Z" fill="#ffffff"/>
+              <path d="M36.5 18 L46 54 L27 54 Z" fill="#1a5fb4"/>
+              <path d="M24 54 H88 L96 50 L94 66 L91 72 L88 66 L85 72 L82 66 L79 72 L76 66 L73 72 L70 66 L67 72 L64 66 L61 72 L58 66 H24 Z" fill="#ffffff"/>
+              <rect x="70" y="75" width="20" height="13" rx="2" fill="#ffffff"/>
+              <path d="M90 89 V80 h6.5 a3 3 0 0 1 3 3 v6 Z" fill="#ffffff"/>
+              <rect x="92" y="82" width="6" height="5" rx="1" fill="#1a5fb4"/>
+              <circle cx="77" cy="89" r="5" fill="#ffffff"/>
+              <circle cx="77" cy="89" r="2" fill="#1a5fb4"/>
+              <circle cx="94" cy="89" r="5" fill="#ffffff"/>
+              <circle cx="94" cy="89" r="2" fill="#1a5fb4"/>
+            </svg>
+          </div>
+          <div class="logo-text" style="color:#fff">Adam <span style="color:#7db4f0">Montage</span>
+            <span class="logo-sub" style="color:#a9b8c7">Küchen · Möbel · Transport</span>
+          </div>
+        </a>
+        <p>Professionelle Küchen- und Möbelmontage mit integriertem Transport — millimetergenau, sauber und voll versichert.</p>
+      </div>
+      <div>
+        <h4>Leistungen</h4>
+        <ul>
+          <li><a href="#leistungen">Küchenmontage</a></li>
+          <li><a href="#leistungen">Möbelmontage</a></li>
+          <li><a href="#transport">Transport &amp; Logistik</a></li>
+          <li><a href="#leistungen">Demontage &amp; Anpassung</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt &amp; Rechtliches</h4>
+        <ul>
+          <li><a href="tel:+491785744311">+49 178 574 4311</a></li>
+          <li><a href="mailto:Info.adam.Montage@gmail.com">Info.adam.Montage@gmail.com</a></li>
+          <li><a href="#" onclick="openModal('impressum-modal');return false">Impressum</a></li>
+          <li><a href="#" onclick="openModal('datenschutz-modal');return false">Datenschutz</a></li>
+          <li><a href="#" onclick="reopenConsent();return false">Cookie-Einstellungen</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      <span>© <span id="year">2026</span> Adam Montage. Alle Rechte vorbehalten.</span>
+      <span>Küchenmontage · Möbelmontage · Transport</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile Menü
+var burger=document.getElementById('burger'),menu=document.getElementById('nav-menu');
+burger.addEventListener('click',function(){menu.classList.toggle('open')});
+menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open')})});
+
+// Jahr automatisch
+document.getElementById('year').textContent=new Date().getFullYear();
+
+// Formular: öffnet E-Mail-Client mit vorausgefüllter Anfrage
+function submitForm(e){
+  e.preventDefault();
+  var name=document.getElementById('f-name').value,
+      phone=document.getElementById('f-phone').value,
+      email=document.getElementById('f-email').value,
+      service=document.getElementById('f-service').value,
+      msg=document.getElementById('f-msg').value;
+  var subject=encodeURIComponent('Angebot anfordern: '+service),
+      body=encodeURIComponent(
+        'Name: '+name+'\nTelefon: '+phone+'\nE-Mail: '+email+
+        '\nLeistung: '+service+'\n\nProjektdetails:\n'+msg
+      );
+  window.location.href='mailto:Info.adam.Montage@gmail.com?subject='+subject+'&body='+body;
+  alert('Vielen Dank! Ihr E-Mail-Programm öffnet sich mit Ihrer Anfrage an Info.adam.Montage@gmail.com');
+  return false;
+}
+
+/* ===== DSGVO / Cookie-Einwilligung ===== */
+var CONSENT_KEY='adam_montage_consent_v1';
+function getConsent(){try{return localStorage.getItem(CONSENT_KEY)}catch(e){return null}}
+function setConsent(v){try{localStorage.setItem(CONSENT_KEY,v)}catch(e){}}
+
+function showConsent(){
+  var b=document.getElementById('cookie-banner');
+  if(!b) return;
+  if(getConsent()===null){
+    setTimeout(function(){b.classList.add('show')},700);
+  }
+}
+function acceptAll(){
+  setConsent('all');
+  hideBanner();
+}
+function acceptEssential(){
+  setConsent('essential');
+  hideBanner();
+}
+function hideBanner(){
+  var b=document.getElementById('cookie-banner');
+  b.classList.remove('show');
+  setTimeout(function(){b.style.display='none'},400);
+}
+function reopenConsent(){
+  var b=document.getElementById('cookie-banner');
+  b.style.display='';
+  setTimeout(function(){b.classList.add('show')},50);
+}
+function closeModal(id){document.getElementById(id).classList.remove('open')}
+function openModal(id){document.getElementById(id).classList.add('open')}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){['impressum-modal','datenschutz-modal'].forEach(function(m){closeModal(m)})}
+});
+document.addEventListener('DOMContentLoaded',showConsent);
+if(document.readyState!=='loading')showConsent();
+</script>
+
+<!-- ============ DSGVO COOKIE-BANNER ============ -->
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-modal="true" aria-labelledby="cb-title">
+  <div class="cb-inner">
+    <div class="cb-head">
+      <div class="cb-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 2a10 10 0 1010 10 4 4 0 01-5-5 4 4 0 01-5-5z"/><circle cx="8.5" cy="10.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="12" cy="15" r="1.1" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <div>
+        <h2 id="cb-title">Datenschutz &amp; Einwilligung</h2>
+        <p>Wir verwenden ausschließlich technisch notwendige Speichertechnologien, damit diese Website funktioniert. Es werden <strong>keine</strong> Marketing- oder Tracking-Cookies gesetzt und keine Daten an Dritte zu Werbezwecken übermittelt. Ihre Angaben aus dem Kontaktformular nutzen wir allein zur Bearbeitung Ihrer Anfrage.</p>
+      </div>
+    </div>
+    <div class="cb-actions">
+      <button type="button" class="cb-btn cb-primary" onclick="acceptAll()">Alle akzeptieren</button>
+      <button type="button" class="cb-btn cb-second" onclick="acceptEssential()">Nur notwendige</button>
+      <button type="button" class="cb-btn cb-link" onclick="openModal('datenschutz-modal')">Datenschutzerklärung</button>
+      <button type="button" class="cb-btn cb-link" onclick="openModal('impressum-modal')">Impressum</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ IMPRESSUM ============ -->
+<div class="modal-overlay" id="impressum-modal" onclick="if(event.target===this)closeModal('impressum-modal')">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="imp-title">
+    <div class="modal-head">
+      <h2 id="imp-title">Impressum</h2>
+      <button class="modal-close" onclick="closeModal('impressum-modal')" aria-label="Schließen">&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Angaben gemäß § 5 TMG</h3>
+      <p><strong>Adam Montage</strong><br>Küchen-, Möbelmontage &amp; Transport</p>
+      <p>Telefon: <a href="tel:+491785744311">+49 178 574 4311</a><br>
+      E-Mail: <a href="mailto:Info.adam.Montage@gmail.com">Info.adam.Montage@gmail.com</a></p>
+      <h3>Verantwortlich für den Inhalt</h3>
+      <p>Adam Montage<br>Kontakt wie oben angegeben</p>
+      <h3>Haftung für Inhalte</h3>
+      <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+      <h3>Haftung für Links</h3>
+      <p>Unser Angebot enthält gegebenenfalls Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+      <h3>Urheberrecht</h3>
+      <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Beiträge Dritter sind als solche gekennzeichnet. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+      <a class="modal-dl" href="data:text/plain;charset=utf-8,Adam%20Montage%20%E2%80%93%20Impressum%0A%0AAngaben%20gem%C3%A4%C3%9F%20%C2%A7%205%20TMG%3A%0AAdam%20Montage%20-%20K%C3%BCchen-%2C%20M%C3%B6belmontage%20%26%20Transport%0A%0ATelefon%3A%20%2B49%20178%20574%204311%0AE-Mail%3A%20Info.adam.Montage%40gmail.com%0A%0AF%C3%BCr%20die%20vollst%C3%A4ndige%20Anschrift%20und%20weitere%20Pflichtangaben%20kontaktieren%20Sie%20uns%20bitte%20direkt." download="Impressum-Adam-Montage.txt">Impressum als Textdatei herunterladen</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DATENSCHUTZ ============ -->
+<div class="modal-overlay" id="datenschutz-modal" onclick="if(event.target===this)closeModal('datenschutz-modal')">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="ds-title">
+    <div class="modal-head">
+      <h2 id="ds-title">Datenschutzerklärung</h2>
+      <button class="modal-close" onclick="closeModal('datenschutz-modal')" aria-label="Schließen">&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>1. Verantwortlicher</h3>
+      <p>Adam Montage – Küchen-, Möbelmontage &amp; Transport<br>
+      Telefon: <a href="tel:+491785744311">+49 178 574 4311</a><br>
+      E-Mail: <a href="mailto:Info.adam.Montage@gmail.com">Info.adam.Montage@gmail.com</a></p>
+      <h3>2. Umfang der Verarbeitung</h3>
+      <p>Diese Website erhebt personenbezogene Daten ausschließlich dann, wenn Sie uns diese freiwillig übermitteln — etwa durch die Nutzung des Kontaktformulars oder eine Kontaktaufnahme per Telefon bzw. E-Mail.</p>
+      <h3>3. Kontaktformular</h3>
+      <p>Wenn Sie uns eine Anfrage über das Formular senden, werden die von Ihnen eingegebenen Angaben (Name, E-Mail-Adresse, Telefonnummer, gewünschte Leistung und Projektdetails) zum Zwecke der Bearbeitung Ihrer Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung bzw. Anbahnung eines Vertrags) sowie Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Bearbeitung von Anfragen). Eine Weitergabe dieser Daten an Dritte zu Werbezwecken erfolgt nicht.</p>
+      <p>Das Formular öffnet auf Ihrem Gerät ein E-Mail-Programm mit einer vorausgefüllten Nachricht. Die Übermittlung erfolgt daher erst durch Ihren eigenen Versand per E-Mail.</p>
+      <h3>4. Cookies und Speichertechnologien</h3>
+      <p>Diese Website setzt <strong>keine</strong> Marketing-, Analyse- oder Tracking-Cookies ein. Es wird lediglich Ihre Einwilligungsentscheidung lokal in Ihrem Browser gespeichert (Local Storage), damit das Hinweisfenster bei weiteren Besuchen nicht erneut erscheint. Diese Speicherung ist technisch notwendig und enthält keine personenbezogenen Daten.</p>
+      <h3>5. Ihre Rechte</h3>
+      <p>Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16 DSGVO), Löschung (Art. 17 DSGVO), Einschränkung der Verarbeitung (Art. 18 DSGVO), Datenübertragbarkeit (Art. 20 DSGVO) sowie Widerspruch gegen die Verarbeitung (Art. 21 DSGVO). Eine erteilte Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen.</p>
+      <h3>6. Einwilligung ändern</h3>
+      <p>Sie können Ihre Auswahl jederzeit anpassen: <button type="button" class="cb-btn cb-second" style="margin-top:10px;padding:9px 18px;font-size:14.5px" onclick="closeModal('datenschutz-modal');reopenConsent()">Einwilligung erneut öffnen</button></p>
+      <h3>7. Beschwerderecht</h3>
+      <p>Ihnen steht ein Beschwerderecht bei der zuständigen Datenschutz-Aufsichtsbehörde zu.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
